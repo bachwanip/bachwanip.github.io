@@ -1,0 +1,42 @@
+This Python code the N50 value, number of contigs, total length of contigs and the length of the largest contig from a FASTA file using BIOPYTHON SEQIOMODULE.
+Save your python file and FASTA file in the same folder.
+The code will ask the user to input the name of the FASTA file.
+
+
+To check if BIOPYTHON is installed:
+Type "python"
+Type "import bio" and enter 
+
+If you don't have it installed, you can install it using this command: 
+#pip install biopython
+#pip3 install biopyton
+
+
+
+
+
+
+
+from Bio import SeqIO
+def cal_N50(filename):
+    lengths = []
+    for record in SeqIO.parse(filename, 'fasta'):
+        lengths.append(len(record))
+    lengths.sort(reverse=True)
+    total_length = sum(lengths)
+    running_total = 0
+    for length in lengths:
+        running_total += length
+        if running_total >= total_length / 2:
+            n50 = length
+            break
+    return n50, lengths, total_length
+filename = input("FASTA file: ")
+n50_value, lengths, total_length = cal_N50(filename)
+num_contigs = len(lengths)
+max_contig_length = max(lengths)
+with open("report.txt", "w") as f:
+    f.write("Number of contigs: {}\n".format(num_contigs))
+    f.write("Total length of contigs: {}\n".format(total_length))
+    f.write("Length of largest contig: {}\n".format(max_contig_length))
+    f.write("N50 value: {}\n".format(n50_value))
