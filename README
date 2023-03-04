@@ -1,0 +1,10 @@
+Usage:
+
+python myquast.py test_data/contigs_1.fasta \
+-o quast_test_output (optinal for output directory)
+-h (showing usage)
+
+
+Output:
+report.txt
+
